@@ -10,8 +10,13 @@ const app = express();
 app.use(express.json());
 
 // ✅ Allow requests from Vercel frontend
-const allowedOrigins = ["https://mern-task-manager-steel-seven.vercel.app/"];
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+const allowedOrigins = [process.env.FRONTEND_URL];
+
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // ✅ Routes
 app.use("/api/users", require("./routes/userRoutes"));
