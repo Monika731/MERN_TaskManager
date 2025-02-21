@@ -9,12 +9,9 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
+// ✅ Allow requests from Vercel frontend
+const allowedOrigins = ["https://mern-task-manager-steel-seven.vercel.app/"];
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 // ✅ Routes
 app.use("/api/users", require("./routes/userRoutes"));
