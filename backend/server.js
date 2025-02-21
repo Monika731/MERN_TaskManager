@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 const cors = require("cors");
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
