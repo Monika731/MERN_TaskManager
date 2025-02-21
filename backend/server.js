@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 // ✅ Allow requests from Vercel frontend
-const allowedOrigins = ["https://mern-task-manager-45y2rcoy3-monikas-projects-82791be5.vercel.app"];
+const allowedOrigins = ["https://mern-task-manager-steel-seven.vercel.app/"];
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 // ✅ Routes
