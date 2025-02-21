@@ -2,6 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import { Form, Button, Container, Card, Toast, ToastContainer } from "react-bootstrap";
 
+// Use backend URL from environment variable
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Register = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [showToast, setShowToast] = useState(false);  // ✅ Track toast visibility
@@ -16,7 +19,7 @@ const Register = () => {
     setError(null); // Clear previous errors
 
     try {
-      await axios.post("http://localhost:5001/api/users/register", formData);
+      await axios.post(`${API_BASE_URL}/api/users/register`, formData);
       setShowToast(true); // ✅ Show success toast
       
       // ✅ Clear form fields after successful registration

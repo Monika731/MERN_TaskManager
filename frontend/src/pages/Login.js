@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Card, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 
+// Use the backend URL from the environment variable
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
@@ -19,7 +22,7 @@ const Login = () => {
     setError(null); // Clear previous errors
 
     try {
-      const { data } = await axios.post("http://localhost:5001/api/users/login", formData);
+      const { data } = await axios.post(`${API_BASE_URL}/api/users/login`, formData);
       localStorage.setItem("token", data.token); // Store token in local storage
       setUser(data); // Store user in context
       navigate("/profile"); // Redirect to Profile page

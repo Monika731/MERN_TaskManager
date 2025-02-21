@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
+// Use the backend URL from the environment variable
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -11,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const { data } = await axios.get("http://localhost:5001/api/users/profile", {
+          const { data } = await axios.get(`${API_BASE_URL}/api/users/profile`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUser(data);

@@ -4,6 +4,9 @@ import { AuthContext } from "../context/AuthContext";
 import { Container, Card, ListGroup, Button, Modal, Form, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+// Use backend URL from environment variable
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 const Profile = () => {
   const { user, setUser } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
@@ -21,7 +24,7 @@ const Profile = () => {
           return;
         }
 
-        const { data } = await axios.get("http://localhost:5001/api/tasks", {
+        const { data } = await axios.get(`${API_BASE_URL}/api/tasks`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTasks(data);
@@ -42,7 +45,7 @@ const Profile = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5001/api/tasks/${taskId}`, {
+      await axios.delete(`${API_BASE_URL}/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -61,7 +64,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.post(
-        "http://localhost:5001/api/tasks",
+        `${API_BASE_URL}/api/tasks`,
         { ...newTask },
         { headers: { Authorization: `Bearer ${token}` } }
       );
